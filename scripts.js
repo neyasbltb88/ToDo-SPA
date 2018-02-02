@@ -110,7 +110,7 @@
 			var restore_tasks = JSON.parse(localStorage.getItem('tasks'))
 			console.log(restore_tasks)
 			restore_tasks ? this.tasks = restore_tasks : this.tasks = []
-			this.tasks = restore_tasks
+			// this.tasks = restore_tasks
 		},
 		methods: {
 			defaultState: function() {

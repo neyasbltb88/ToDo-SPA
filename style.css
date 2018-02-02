@@ -1,0 +1,347 @@
+.sidebar {
+	/*text-align: center;*/
+	/*border: 1px solid #333;*/
+	position: relative;
+}
+
+.col {
+	position: relative;
+}
+
+.sidebar .side-nav {
+	position: relative;
+	width: 100%;
+	left: 0;
+	top: 0;
+	margin: 0;
+	-webkit-transform: translateX(0%); 
+	transform: translateX(0%);
+	height: 100%;
+	height: calc(100% - 64px);
+	height: -moz-calc(100% - 64px);
+	padding-bottom: 60px;
+	background-color: #fff;
+	z-index: 1;
+	overflow-y: auto;
+	will-change: transform; 
+	-webkit-backface-visibility: hidden; 
+	backface-visibility: hidden;
+	margin-top: 1px;
+}
+
+#app {
+	text-align: center;
+}
+
+#mobile-demo li span {
+	display: block;
+	font-size: 16px;
+	font-weight: 800;
+	height: 56px;
+	line-height: 64px;
+	padding: 0 32px;
+	text-align: center;
+}
+
+header nav {
+	z-index: 10;
+}
+nav .container {
+	position: relative;
+}
+
+nav .brand-logo {
+	left: 15px;
+}
+
+header nav ul a.btn {
+	margin-top: 0;
+}
+
+header nav ul a:hover {
+	background-color: transparent;
+}
+
+@media only screen and (max-width: 992px) {
+	nav .brand-logo {
+	left: 15px;
+	font-size: 1.8rem;
+	-webkit-transform: translateX(0%); 
+	transform: translateX(0%); 
+}
+}
+@media only screen and (max-width: 600px) {
+	nav .brand-logo {
+	left: 60px;
+	font-size: 1.8rem;
+}
+}
+
+#create_task button, #create_task div {
+	margin-top: 12px;
+}
+
+#create_task button i, #create_task div i {
+	font-size: 2rem;
+}
+.active .collapsible-header {
+	color: rgba(0, 0, 0, 0.87);
+	background-color: transparent;
+}
+
+li .collapsible-header {
+	border-bottom: 1px solid transparent;
+	background-color: #26a69a;
+	color: #fff;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+
+.collapsible-header.active {
+	border-bottom: 1px solid #ddd;
+}
+
+.input-field .material-icons {
+	top: 36px;
+}
+
+.card {
+	background-color: #fff !important;
+}
+
+.card, .card.done {
+	overflow: hidden;
+	-webkit-transition: all .6s;
+	-o-transition: all .6s;
+	transition: all .6s;
+	z-index: 1;
+}
+
+.card label,
+.card h5,
+.card p {
+	color: rgba(0, 0, 0, 0.87);
+	word-break: break-word;
+	-moz-word-break: break-all;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+	margin-top: 4px;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+	/*z-index: 1;*/
+}
+
+.card.done .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+	color: #fff;
+}
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
+	color: #ffab40 !important;
+}
+
+.card.done label, .card.done h6 {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.card.done h5,
+.card.done textarea,
+.card.done a,
+.card.done p {
+	color: #fff;
+	border-bottom-color: rgba(0, 0, 0, 0.87);;
+}
+
+.card-content p {
+	text-align: left;
+	white-space: pre-line
+}
+
+.card-title-wrap {
+	/*position: relative;*/
+	display: block;
+	width: 100%;
+}
+
+.card-title-wrap h6 {
+	float: left;
+	left: 0;
+	margin: 0;
+	font-size: 1.4rem;
+	color: #555;
+	height: 24px;
+}
+
+.card-title-wrap i {
+	display: inline-block;
+	float: left;
+	left: 0;
+	margin: 0;
+	font-size: 1.6rem;
+	color: #26a69a;
+	height: 24px;
+	/*display: none;*/
+	/**************************/
+}
+
+.card-title {
+	position: relative;
+	padding-left: 52px;
+	margin-bottom: 12px;
+	white-space: pre-line;
+}
+
+.card-title-wrap::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.card-action a {
+	padding: 10px;
+}
+
+.collapsible.popout > li {
+	/*box-shadow: none;*/
+	-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+input.invalid_ + label.active {
+	color: #F44336 !important;
+}
+
+input.invalid_ + label.active::after {
+	content: attr(data-error);
+	color: #F44336;
+	opacity: 1;
+	-webkit-transition: opacity .1s .2s;
+	-o-transition: opacity .1s .2s;
+	transition: opacity .1s .2s;
+}
+
+input.invalid_:focus {
+	border-bottom: 1px solid #F44336 !important;
+	-webkit-box-shadow: 0 1px 0 0 #F44336 !important;
+	box-shadow: 0 1px 0 0 #F44336 !important;
+}
+
+.collapsible_ {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.collapsible_.popout {
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.collapsible_.popout > li {
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  margin: 0 24px;
+  -webkit-transition: margin 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: margin 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.collapsible_.popout > li.active {
+  -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+          box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  margin: 16px 0;
+}
+
+.collapsible_ .btn {
+	min-width: 154px;
+}
+
+.card-title-wrap .card-title h5 {
+	float: none;
+	text-transform: uppercase;
+	margin: 0;
+	font-size: 24px;
+	line-height: 29px;
+	/*padding-bottom: 1px;*/
+}
+
+#edit_title {
+	float: none;
+	/*font-size: 1.64rem;*/
+	line-height: 29px !important;
+	margin: 0;
+	font-weight: 400;
+	text-transform: uppercase;
+	padding: 0;
+	/*max-height: 24px;*/
+	/*height: 24px;*/
+	vertical-align: top;
+	text-align: center;
+	box-sizing: border-box !important;
+	/*box-sizing: content-box !important;*/
+	font-size: 24px;
+/*	-webkit-transition: none;
+	-o-transition: none;
+	transition: none;*/
+	margin-bottom: 8px;
+	/*padding-bottom: 4px;*/
+	/*line-height: 24px;*/
+}
+
+.task_descr {
+	padding-top: 8px;
+	margin-bottom: 22px !important;
+}
+
+#edit_descr {
+	padding: 0;
+	height: 20px;
+	min-height: 20px !important;
+	box-sizing: border-box !important;
+	/*box-sizing: content-box !important;*/
+	margin-bottom: 18px !important;
+	/*transition: none;*/
+	/*transition: all .1s;*/
+}
+
+#edit_descr:first-letter,
+.task_descr:first-letter {
+	text-transform: uppercase;
+}
+
+.language_btn	{
+	line-height: 26px;
+	display: inline-block;
+	padding: 4px 10px;
+}
+
+.language_btn i {
+	display: inline-block !important;
+	vertical-align: middle;
+	height: initial !important;
+	line-height: initial !important;
+}
+
+.language_btn i:first-child {
+	opacity: .9;
+}
+
+.language_btn i:last-child {
+	opacity: .55;
+	-webkit-transition: opacity .2s;
+	-o-transition: opacity .2s;
+	transition: opacity .2s;
+}
+
+.language_btn:hover i {
+	opacity: 1;
+	-webkit-transition: opacity .2s;
+	-o-transition: opacity .2s;
+	transition: opacity .2s;
+}
+
+.dropdown-content li > a:active {
+	color: #fff;
+}

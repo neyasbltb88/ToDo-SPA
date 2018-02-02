@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ToDo SPA</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+	<link rel="stylesheet" href="materialize/css/materialize.css">
+
+	<link rel="stylesheet" href="style.css">
+	<script src="scripts.js"></script>
+
+	<style>
+		[v-cloak] {
+			opacity: 0;
+		}
+		.load {
+			display: none;
+			font-size: 20px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) !important;
+			width: 64px;
+			height: 64px;
+		}
+		[v-cloak] + .load {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+<!-- 	<script>
+  	document.addEventListener("DOMContentLoaded", ready);
+	</script> -->
+	<div v-cloak id="app">
+	<header>
+		<nav>
+			<div class="nav-wrapper">
+				<div v-cloak class="container">
+					<div class="row">
+						<div class="col s12">
+							<a href="#" class="brand-logo">{{interface.logo}}</a>
+							<a href="#" data-activates="mobile-demo" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
+							<ul class="right ">
+								<li>
+									<a class='dropdown-button_ language_btn waves-effect' href='#' data-activates='dropdown1'><i class="material-icons">language</i> {{interface.language}}<i class="material-icons">keyboard_arrow_down</i></a>
+									<ul id='dropdown1' class='dropdown-content'>
+								    <li>
+								    <a 
+								    class="waves-effect waves-teal " 
+								    href="#!"
+								    @click.prevent="changeLng('rus')"
+								    >Русский</a></li>
+								    <li>
+								    <a 
+								    class="waves-effect waves-teal " 
+								    href="#!"
+								    @click.prevent="changeLng('eng')"
+								    >English</a></li>
+								    
+								  </ul>
+							  </li>
+								<!-- <li><a href="#!" class="waves-effect">ToDo Apps</a></li>
+								<li><a href="#" class="waves-effect">Components</a></li>
+								<li><a href="#" class="waves-effect">Javascript</a></li>
+								<li><a href="#" class="waves-effect">Mobile</a></li> -->
+							</ul>
+							<ul class="side-nav " id="mobile-demo">
+								<li><span class="red lighten-2">{{interface.logo}}</span></li>
+								<li 
+								v-for="(app_list, index) in interface.app_lists" 
+								>	<!-- class="active" -->
+								<a 
+								href="#" 
+								class="waves-effect waves-teal"
+								@click.prevent.stop
+								>{{app_list}}</a></li>
+							</ul>
+
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</nav>
+	</header>
+
+	<div class="container">
+		<div class="row">
+			<div class="col s0 m4 l3">
+				<div class="sidebar">
+					<ul class="side-nav">
+						<li 
+						
+						v-for="(app_list, index) in interface.app_lists" 
+						>	<!-- class="active" -->
+						<a 
+						href="#" 
+						class="waves-effect waves-teal"
+						@click.prevent.stop
+						>{{app_list}}</a></li>
+						<!-- <li><a href="#" class="waves-effect waves-teal">{{interface.app_list._2}}</a></li>
+						<li><a href="#" class="waves-effect waves-teal">{{interface.app_list._3}}</a></li>
+						<li><a href="#" class="waves-effect waves-teal">{{interface.app_list._4}}</a></li> -->
+					</ul>
+				</div>
+			</div>
+
+			<div class="col s12 m8 l9">
+				<!-- <div v-cloak id="app"> -->
+					<!-- <h1 v-cloak>{{msg}}</h1> -->
+					<!-- <div class="load">Загрузка...</div> -->
+
+
+					<ul class="collapsible_ popout" data-collapsible="accordion" @click="editIndex = -1">
+						<li>
+							<div 
+							class="collapsible-header waves-effect waves-light"
+							
+							>
+							<i class="material-icons">create</i>{{interface.new_task_header}}</div>
+							<div class="collapsible-body">
+								<form @submit.prevent="addTask" id="create_task">
+									<div class="input-field">
+										<input 
+										id="task_title" 
+										type="text" 
+										class="validate required" 
+										autocomplete="off"
+										v-model.trim="new_title" 
+										v-bind:class="{invalid_: emptyTitle_err}"
+										>
+										<label 
+											for="task_title" 
+											v-bind:data-error="interface.new_task_error"
+											>
+											{{interface.new_task_title}}
+										</label>
+									</div>
+									<div class="input-field">
+										<i class="material-icons prefix">description</i>
+										<textarea 
+										id="task_description" 
+										class="materialize-textarea" 
+										v-model.trim="new_descr"
+										></textarea>
+										<label for="task_description">{{interface.new_task_description}}</label>
+									</div>
+
+									<div 
+									class="btn red waves-effect waves-light" 
+									name="cancel" 
+									@submit.prevent
+									@click.prevent="clearForm"
+									>
+									{{interface.new_task_btn_clr}}
+									<i class="material-icons left">cancel</i>
+								</div>
+
+								<button 
+								class="btn waves-effect waves-light" 
+								type="submit" 
+								name="submit" 
+								@submit.prevent="addTask"
+								>
+								{{interface.new_task_btn_add}}
+								<i class="material-icons left">add_circle</i>
+							</button>
+
+						</form>
+					</div>
+				</li>
+			</ul>
+
+
+			<transition-group
+			>
+				<div 
+				class="card horizontal" 
+				v-bind:key="task.id"
+				v-for="(task, index) in tasks" 
+				v-bind:class="{done: task.done, teal: task.done, 'darken-2': task.done, 'z-depth-3': editIndex == index}"
+				v-if="taskViewMode(task.done)"
+				>	<!-- v-bind:class="{'z-depth-3': task.active}" -->
+				<div class="card-stacked" >
+					<div class="card-content">
+						<div class="card-title-wrap">
+							<h6 >{{index+1}}.</h6>	<!-- v-if="!task.done" -->
+							<!-- <i v-else class="material-icons">create</i> -->
+							<div class="card-title">
+								<h5
+									v-if="editIndex != index"
+								>{{task.title}}</h5>
+								<!-- <input 
+									type="text" 
+									id="edit_title"
+									v-model.trim="task.title"
+									v-else
+									> -->
+									<textarea 
+									type="text" 
+									id="edit_title"
+									class="materialize-textarea" 
+									v-model.trim="task.title"
+									v-else
+									></textarea>
+							</div>
+						</div>
+						<p
+							class="task_descr"
+							v-if="editIndex != index"
+						>{{task.descr}}</p>
+						<textarea 
+							id="edit_descr" 
+							class="materialize-textarea" 
+							v-model.trim="task.descr"
+							v-else
+							></textarea>	
+						<!-- <br> -->
+						<div class="switch right">
+							<label>
+								<!-- Выполнено:&nbsp;&nbsp;&nbsp;&nbsp;Нет -->
+								{{interface.card_done_no}}
+								<input 
+									type="checkbox" 
+									v-model="task.done"
+									@click="saveToLocal"
+									>
+								<span class="lever"></span>
+								{{interface.card_done_yes}}
+							</label>
+						</div>
+					</div>
+					<div class="card-action">
+						<a 
+						href="#" 
+						class="left waves-effect" 
+						@click.prevent="editTask(index, $event)"
+						v-if="editIndex != index"
+						>{{interface.card_btn_1}}</a>	<!-- @click.prevent="task.done = !task.done" -->
+						<a 
+						href="#" 
+						class="left waves-effect" 
+						@click.prevent="saveTask(index)"
+						v-else
+						>{{interface.card_btn_1_1}}</a>
+						<a href="#" class="left waves-effect" @click.prevent="removeTask(index)">{{interface.card_btn_2}}</a>
+						<!-- <p class="task_id right">id={{task.id}}</p> -->
+					</div>
+				</div>
+			</div>
+			</transition-group>
+
+			<div class="fixed-action-btn toolbar">
+		    <a class="btn-floating btn-large indigo tooltipped"
+		     data-position="top" data-delay="200" 
+		     v-bind:data-tooltip="interface.float_btn.main_btn">
+		      <i class="large material-icons">tune</i>
+		    </a>
+		    <ul>
+		      <li class="waves-effect waves-light tooltipped"
+		       data-position="top" data-delay="200" 
+		       v-bind:data-tooltip="interface.float_btn.view_non_complete"><a href="#!" @click.prevent="task_view_mode = 1"><i class="material-icons">assignment_late</i></a></li>
+		      <li class="waves-effect waves-light tooltipped"
+		       data-position="top" data-delay="200" 
+		       v-bind:data-tooltip="interface.float_btn.view_complete"><a href="#!" @click.prevent="task_view_mode = 2"><i class="material-icons">assignment_turned_in</i></a></li>
+		      <li class="waves-effect waves-light tooltipped"
+		       data-position="top" data-delay="200" 
+		       v-bind:data-tooltip="interface.float_btn.view_all"><a href="#!" @click.prevent="task_view_mode = 0"><i class="material-icons">assignment</i></a></li>
+		      <li class="waves-effect waves-light tooltipped"
+		       data-position="top" data-delay="200" 
+		       v-bind:data-tooltip="interface.float_btn.complete_all"><a href="#!" @click.prevent="completeAll"><i class="material-icons">done_all</i></a></li>
+		      <li class="waves-effect waves-light tooltipped"
+		       data-position="top" data-delay="200" 
+		       v-bind:data-tooltip="interface.float_btn.delete_all"><a href="#!" @click.prevent="deleteAll"><i class="material-icons">clear_all</i></a></li>
+		    </ul>
+		  </div>
+
+<!-- <i class="material-icons left">add_circle
+access_time
+add_circle
+add_circle_outline
+check_circle
+highlight_off
+apps
+assignment_turned_in
+assignment_late
+assignment
+content_paste
+clear_all
+done_all
+forum
+hourglass_empty
+hourglass_full
+info_outline
+info
+insert_comment
+more_horiz
+more_vert
+note_add
+offline_pin
+priority_high
+redo
+undo
+remove_circle
+remove_circle_outline
+remove
+schedule
+settings
+speaker_notes
+speaker_notes_off
+timer
+timer_off
+view_agenda
+view_stream
+view_column
+view_module
+watch_later
+library_books
+list
+navigate_before
+navigate_next
+person
+settings
+sort
+tune
+
+
+</i> -->
+	</div>
+
+
+
+</div>
+</div>
+</div>
+
+	<div class="load">
+
+		<div class="preloader-wrapper big active">
+			<div class="spinner-layer spinner-blue">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+
+			<div class="spinner-layer spinner-red">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+
+			<div class="spinner-layer spinner-yellow">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+
+			<div class="spinner-layer spinner-green">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" defer></script> -->
+<script src="jquery-3.2.1.min.js"></script>
+
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js" defer></script> -->
+<script src="materialize/js/materialize.js"></script>
+
+<!-- <script src="https://ru.vuejs.org/js/vue.min.js" defer></script> -->
+<!-- <script src="https://unpkg.com/vue" defer></script> -->
+<script src="vue.js"></script>
+
+<!-- <script src="https://unpkg.com/vue-toasted" defer></script> -->
+<!-- <script src="vue-toasted.min.js"></script> -->
+
+
+
+<!-- <script src="scripts.js" ></script> -->
+</body>
+</html>
+
+
+<!-- 
+
+
+
+
+
+
+ -->
